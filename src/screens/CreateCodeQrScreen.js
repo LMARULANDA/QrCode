@@ -1,59 +1,63 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Button } from "react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { View, StyleSheet, Button, Text } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 import UserForm from "../components/UserForm";
 
 export default function CreateCodeQrScreen() {
-  const [userInfo,setUserInfo] = useState(null);
+  const [userInfo,setUserInfo] = useState({
+      name:"",
+      email:"",
+      phone:"",
+      date:null
+
+  });
 
 
-  const handleSubmit = async (info) => {
-    console.log('informe');
-    if (info && Object.values(info).every(value => value !== null)) {
-      console.log('info', info);
-      setUserInfo(JSON.stringify(info));
-      console.log("informa",userInfo);
-      try {
-        await AsyncStorage.setItem('userInfor', JSON.stringify(info));
-        //setUserInfo(JSON.stringify(info));
-        //setPeople([...people, info]);
-  
-      } catch (error) {
-        console.error("Error al guardar la información:", error);
-      }
-    
-    
+  const handleSubmit = (info) => {
+
+    if (info && Object.values(info).every(value => value !== "" && value !== null)) {
+      setUserInfo({
+        ...info,
+        date: new Date().toLocaleString()
+      });
+      alert("registro guardado exitosamente");
     } else {
-      console.error("la informacion de la persona contiene valores null ");
+      alert("La informacion del usuario contiene valores nulos.");
     }
-   
-  
+       
   };
 
-  const handleNewQR = () => {
-
-    //setUserInfo(null);
-   
-  };
+ 
 
   return (
     <View style={styles.container}>
       {!userInfo ? (
         <UserForm onSubmit={handleSubmit} />
       ) : (
-        <QRCode
+        <View>
+          <QRCode
           value={JSON.stringify(userInfo)}
           size={200}
           color="black"
           backgroundColor="white"
-        />
+        />  
+        {Object.keys(userInfo).map((key, index) => (
+        <Text key={index}>
+           {`${key}: ${
+            key === "fecha" ? new Date(userInfo[key]).toLocaleDateString() : userInfo[key]
+            }`}</Text>
+        
+        ))}
+        </View>
+       
+        
+        
       )}
-      <Button title="Generar nuevo código QR" onPress={handleNewQR} />
+      <Button title="Generar nuevo código QR" onPress={()=> setUserInfo(null)} />
     </View>
   );
 }
-
+ 
 const styles = StyleSheet.create({
   container: {
     flex: 1,

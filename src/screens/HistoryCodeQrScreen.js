@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, AsyncStorage, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, Text } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import QRCode from 'react-native-qrcode-svg';
 
 export default function HistoryCodeQrScreen() {

@@ -1,23 +1,40 @@
-import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, Button } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import QRCode from "react-native-qrcode-svg";
 import UserForm from "../components/UserForm";
 
 export default function CreateCodeQrScreen() {
-  const [people, setPeople] = useState(null);
-  
+  const [userInfo,setUserInfo] = useState(null);
+
 
   const handleSubmit = async (info) => {
-    try {
-      await AsyncStorage.setItem(info.email, JSON.stringify(info));
-      setPeople([...people, info]);
-    } catch (error) {
-      console.error("Error al guardar la información:", error);
+    console.log('informe');
+    if (info && Object.values(info).every(value => value !== null)) {
+      console.log('info', info);
+      setUserInfo(JSON.stringify(info));
+      console.log("informa",userInfo);
+      try {
+        await AsyncStorage.setItem('userInfor', JSON.stringify(info));
+        //setUserInfo(JSON.stringify(info));
+        //setPeople([...people, info]);
+  
+      } catch (error) {
+        console.error("Error al guardar la información:", error);
+      }
+    
+    
+    } else {
+      console.error("la informacion de la persona contiene valores null ");
     }
+   
+  
   };
 
   const handleNewQR = () => {
-    //redireccionar a lista de qr o volver a cargar el componente 
+
+    //setUserInfo(null);
+   
   };
 
   return (

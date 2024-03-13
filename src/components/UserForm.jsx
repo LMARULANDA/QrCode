@@ -6,7 +6,7 @@ export default function PersonForm({ onSubmit }) {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
-  const [person, setPerson] = useState(null);
+
 
   const handleSubmit = () => {
     onSubmit({ name, email, phone });
@@ -40,12 +40,12 @@ export default function PersonForm({ onSubmit }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
+    flex:1,
+    alignItems: 'left',
     justifyContent: 'center',
   },
   input: {
-    width: '80%',
+    width: '50px',
     marginBottom: 10,
     padding: 10,
     borderBottomWidth: 1,

@@ -23,7 +23,7 @@ function MyTabs() {
           },
         }}
       />
-      <Tab.Screen name="Escanear codigo QR" component={ScanCodeQrScreen} />
+      <Tab.Screen icon={"home"} name="Escanear codigo QR" component={ScanCodeQrScreen} />
       <Tab.Screen name="Crear Codigo QR" component={CreateCodeQrScreen} />
       <Tab.Screen name="Historial" component={HistoryCodeQrScreen} />
       <Tab.Screen name="Configuracion" component={SettingsScreen} />
